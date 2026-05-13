@@ -37,7 +37,6 @@
 				<!-- Main -->
 					<div id="main">
 
-						<!-- Example in elements.html -->
 <section id="hyperloop">
     <h2>Hyperloop Braking System</h2>
     <p>Here is the braking system I newly conceptualized for Cornell Hyperloop as braking lead as well as diagrams of our old system. I helped make the CAD with my subteam members, leading design efforts and problem-solving techniques for our new design.</p>
@@ -48,7 +47,6 @@
         height="600px">
     </iframe>
 </div>
-
 </section>
 
 <section id="heat-transfer">
@@ -62,7 +60,7 @@
 	</iframe>
 	</div>
 </section>
-						
+
 <section id="torque-wrench">
     <h2>Torque Wrench CAD & FEM</h2>
     <p>I altered a baseline design of a torque wrench to be more optimal based on FOS and torque specifications as well out output requirements using a handwritten Matlab script. Here is the design along with my Ansys analysis.</p>
@@ -82,6 +80,7 @@
   <iframe width="560" height="315" src="https://www.youtube.com/embed/nZxj0oJAFd0?si=cDvY2F4yxTrmceoK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 </section>
+
 <section id="thermo">
   <h2>Thermodynamics Project</h2>
 
@@ -245,7 +244,6 @@ h_1 \approx h_2
   temperature and phase changes throughout the discharge.
 </p>
 
-
 <h3>7) Sources</h3>
   <ul class="sources">
   <li>
@@ -253,51 +251,43 @@ h_1 \approx h_2
       Kidde Pro 10 CDM-4 Carbon Dioxide Fire Extinguisher – Official Product Page
     </a>
   </li>
-
   <li>
     <a href="https://www.emergencylighting.com/products/26841/pro-10-cd-fire-extinguisher" target="_blank" rel="noopener">
       Pro 10 CD Fire Extinguisher Specifications (Operating Pressure, Discharge Time, Range)
     </a>
   </li>
-
   <li>
     <a href="https://www.stewartsupply.com/kidde-proline-carbon-dioxide-fire-extinguishers-bc-type-carbon-dioxide-gas--1" target="_blank" rel="noopener">
       Kidde ProLine CO₂ Fire Extinguisher Technical Listing
     </a>
   </li>
-
   <li>
     <a href="https://www.sc.edu/ehs/training/Fire/05_co2.htm" target="_blank" rel="noopener">
       Carbon Dioxide Fire Extinguishers – Operating Principles and Cooling Effects
     </a>
   </li>
-
   <li>
     <a href="https://www.cws.com/en/fire-safety/news/how-does-co2-fire-extinguisher-work" target="_blank" rel="noopener">
       How CO₂ Fire Extinguishers Work (Pressure Drop and Cooling Mechanism)
     </a>
   </li>
-
   <li>
     <a href="https://www.fps-eg.com/2021/05/carbon-dioxide-fire-extinguishers-co2.html" target="_blank" rel="noopener">
       Carbon Dioxide Fire Extinguishers – Suppression and Expansion Behavior
     </a>
   </li>
-
   <li>
     <a href="https://en.wikipedia.org/wiki/Liquid_carbon_dioxide" target="_blank" rel="noopener">
       Liquid Carbon Dioxide – Thermophysical Properties and Phase Behavior
     </a>
   </li>
-
   <li>
     <a href="https://en.wikipedia.org/wiki/Joule%E2%80%93Thomson_effect" target="_blank" rel="noopener">
       Joule–Thomson Effect – Temperature Change During Throttling
     </a>
   </li>
 </ul>
-
-
+</section>
 
 <section id="building">
     <h2>Seismic Feed-forward Control</h2>
@@ -309,7 +299,6 @@ h_1 \approx h_2
         height="600px">
     </iframe>
 </div>
-
 </section>
 
 <section id="ralph-lab">
@@ -323,9 +312,79 @@ h_1 \approx h_2
         <img src="images/3_1_100x.jpg" alt="Image 2" style="width: 100%; max-width: 400px;">
     </div>
 </div>
-
 </section>
-				</section>
+
+<section id="mechatronics">
+    <h2>Mechatronics Robotics Competition</h2>
+    <p>For this project, our team designed and built an autonomous robot to compete in a cube-collecting competition. The robot navigates a two-color board using open-loop control, detects color boundaries using a TCS2300 color sensor, and stops at the black border. My contributions spanned mechanical design, electrical assembly, and software implementation.</p>
+
+    <h3>Mechanical Design</h3>
+    <p>The chassis is an elevated 8 x 8 inch laser-cut white acrylic perimeter forming three sides of a square, with larger wheels mounted on the outside. This open-front design maximizes the cube-collecting area inside the robot. We prototyped first in cardboard before committing to acrylic, which let us test and rule out a gate mechanism before manufacturing. The back wall placement was carefully adjusted to avoid dragging on the ground while still preventing blocks from escaping.</p>
+
+    <h3>Electrical System</h3>
+    <p>The robot uses two L9110 H-bridges, two DC wheel motors, an Arduino Uno, and a TCS2300 color sensor. Each H-bridge independently controls one motor, driven by digital output pins on the Arduino. The H-bridges run off a 6V supply (4 AA batteries in series) while the Arduino is powered separately by a 9V battery. The color sensor connects as an input to the Arduino and outputs a frequency signal proportional to the detected color.</p>
+
+    <div class="pdf-container">
+        <iframe
+            src="files/3780_Final_Report.pdf"
+            width="100%"
+            height="600px">
+        </iframe>
+    </div>
+
+    <h3>Software Design</h3>
+    <p>The software uses open-loop control built around three motor functions — <code>drive_forward()</code>, <code>turn_left()</code>, and <code>stop()</code> — implemented via direct AVR register writes to the H-bridge input pins. A pin-change interrupt on Pin 10 (PB2) measures the period of the color sensor's frequency output using Timer 1. On startup the robot samples the initial surface color, then drives forward until the measured period deviates by more than a calibrated threshold of 100 counts, indicating a blue-to-yellow transition. It then turns left by a pre-calibrated delay and drives forward until detecting the black border, at which point it stops.</p>
+
+    <h3>Competition Results</h3>
+    <p>The robot performed reliably throughout the tournament. Color detection worked consistently and the motion sequence executed as intended in most rounds. The main failure mode was getting entangled with opposing robots, since our open-loop design had no way to detect or react to external interference. We also had rounds where being pushed onto the black border early caused the robot to stop prematurely for the rest of the match. Post-competition, we identified three improvements: implementing a "reverse and re-center" response instead of stopping at the black border, removing the startup delay to prioritize speed, and adding QTI sensors for directional border awareness.</p>
+
+    <h3>Bill of Materials</h3>
+    <table class="data">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Vendor</th>
+                <th>Unit Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Wheels</td>
+                <td>Lab</td>
+                <td>$2.00</td>
+                <td>2</td>
+                <td>$4.00</td>
+            </tr>
+            <tr>
+                <td>Structural Adhesive (J-B Weld Clearweld)</td>
+                <td>McMaster</td>
+                <td>$7.11</td>
+                <td>1</td>
+                <td>$7.11</td>
+            </tr>
+            <tr>
+                <td>M3 Pan Head Screw, 50mm</td>
+                <td>McMaster</td>
+                <td>$7.32</td>
+                <td>1</td>
+                <td>$7.32</td>
+            </tr>
+            <tr>
+                <td>Acrylic Sheet</td>
+                <td>RPL</td>
+                <td>$5.00</td>
+                <td>1</td>
+                <td>$4.70 (incl. manufacturing)</td>
+            </tr>
+            <tr>
+                <td colspan="4"><strong>Total</strong></td>
+                <td><strong>$23.13</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
 					</div>
 
@@ -368,4 +427,3 @@ h_1 \approx h_2
 	</body>
 
 </html>
-
